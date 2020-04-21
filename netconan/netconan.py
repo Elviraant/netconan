@@ -70,6 +70,8 @@ def _parse_args(argv):
     parser.add_argument('--preserve-private-addresses',
                         action='store_true', default=False,
                         help='Preserve private-use IP addresses. Prefixes and host bits within the private-use IP networks are preserved. To preserve specific addresses or networks, use --preserve-addresses instead. To preserve just prefixes and anonymize host bits, use --preserve-prefixes')
+    parser.add_argument('--keyword-remover', default=None,
+                        help='List of comma seperated line beginnings to be removed.')
     return parser.parse_args(argv)
 
 
@@ -126,12 +128,17 @@ def main(argv=sys.argv[1:]):
             preserve_addresses + addrs
         )
 
+    keyword_remover = None
+    if args.keyword_remover is not None:
+        keyword_remover = args.keyword_remover.split(',')
+
     if not any([
         as_numbers,
         sensitive_words,
         args.anonymize_passwords,
         args.anonymize_ips,
-        args.undo
+        args.undo,
+        keyword_remover
     ]):
         logging.warning('No anonymization options turned on, '
                         'no output file(s) will be generated.')
