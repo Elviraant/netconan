@@ -285,7 +285,7 @@ def test_remove_line():
     reserved_word = 'reserved'
     remover = LineRemover(keywords, [reserved_word])
     result = remover.remove_line(line, keywords)
-  
+
     assert(result is None)
 
     line = "This is a neighbor"
@@ -297,10 +297,10 @@ def test_remove_line_when_there_are_reseved_words():
     """Test if the line removed when there are reserved words."""
     line = "This is aaa BGP neighbor"
     keywords = ['BGP']
-    reserved_word = 'aaa'    
+    reserved_word = 'aaa'
     remover = LineRemover(keywords, [reserved_word])
     result = remover.remove_line(line, keywords)
-    
+
     assert(result is not None)
 
 
