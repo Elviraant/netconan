@@ -178,8 +178,10 @@ class SensitiveWordAnonymizer(object):
         """Lookup anonymized word for the given sensitive word regex match."""
         return self.sens_word_replacements[match.group(0).lower()]
 
+
 class LineRemover(object):
     """A line remover for interface descriptions, BGP neighbor descriptions, remarks in ACLs etc."""
+    
     def __init__(self, keywords, reserved_words=default_reserved_words):
         """Create an anonymizer for specified list of sensitive words and set of reserved words to leave alone."""
         self.reserved_words = reserved_words
