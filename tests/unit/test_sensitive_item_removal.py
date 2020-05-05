@@ -263,18 +263,20 @@ def test_anonymize_sensitive_words_preserve_reserved_word():
     # Confirm the reserved word was not replaced
     assert(reserved_word in anon_line.split())
 
+
 def test_generate_conflicting_reserved_word_list():
-    """Test if the set of conflicting reserved words is formed correctly"""
+    """Test if the set of conflicting reserved words is formed correctly."""
     reserved_word = 'reserved'
     keywords = ['reserved', 'keyword1', 'keyword2']
     remover = LineRemover(keywords, [reserved_word])
     result = remover._generate_conflicting_reserved_word_list(keywords)
-    
-    #Confirm the reserved word is in the set
+
+    # Confirm the reserved word is in the set
     assert(reserved_word in result)
     keywords = ['keyword', 'keyword1', 'keyword2']
     result = remover._generate_conflicting_reserved_word_list(keywords)
     assert(reserved_word not in result)
+
 
 @pytest.mark.parametrize('val', unique_passwords)
 def test__anonymize_value(val):

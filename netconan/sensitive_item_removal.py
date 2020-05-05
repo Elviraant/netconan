@@ -263,7 +263,6 @@ def _anonymize_value(raw_val, lookup, reserved_words):
 
     if item_format == _sensitive_item_formats.numeric:
         # These are the ASCII character values for anon_val converted to decimal
-
         anon_val = str(int(b2a_hex(b(anon_val)), 16))
 
     if item_format == _sensitive_item_formats.hexadecimal:
