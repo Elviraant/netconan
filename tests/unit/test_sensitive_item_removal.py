@@ -278,6 +278,32 @@ def test_generate_conflicting_reserved_word_list():
     assert(reserved_word not in result)
 
 
+def test_remove_line():
+    """Test if the line removed."""
+    line = "This is a sentence with a keyword"
+    keywords = ['keyword']
+    reserved_word = 'reserved'
+    remover = LineRemover(keywords, [reserved_word])
+    result = remover.remove_line(line, keywords)
+  
+    assert(result is None)
+
+    line = "This is a neighbor"
+    result = remover.remove_line(line, keywords)
+    assert(result is not None)
+
+
+def test_remove_line_when_there_are_reseved_words():
+    """Test if the line removed when there are reserved words."""
+    line = "This is aaa BGP neighbor"
+    keywords = ['BGP']
+    reserved_word = 'aaa'    
+    remover = LineRemover(keywords, [reserved_word])
+    result = remover.remove_line(line, keywords)
+    
+    assert(result is not None)
+
+
 @pytest.mark.parametrize('val', unique_passwords)
 def test__anonymize_value(val):
     """Test sensitive item anonymization."""
