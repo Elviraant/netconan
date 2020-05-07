@@ -51,7 +51,7 @@
 default_pwd_line_regexes = [
     [(r'(?P<prefix>(password|passwd)( level \d+)?( \d+)? )(\S+)', 5)],
     [(r'(?P<prefix>username( \S+)+ (password|secret)( \d| sha512)? )(\S+)', 5)],
-    [(r'(?P<prefix>(enable )?secret( \d)? )(\S+)', 4)],
+    [(r'(?P<prefix>(enable )?secret( \d)? )([\"].+[\"]|[\"].+|\S+)', 4)],
     [(r'(?P<prefix>ip ftp password( \d)? )(\S+)', 3)],
     [(r'(?P<prefix>ip ospf authentication-key( \d)? )(\S+)', 3)],
     [(r'(?P<prefix>isis password )(\S+)(?=( level-\d)?)', 2)],
@@ -65,7 +65,7 @@ default_pwd_line_regexes = [
     [(r'(?P<prefix>(ikev2 )?(local|remote)-authentication pre-shared-key )(\S+)', 4)],
     [(r'(?P<prefix>(\S )*pre-shared-key( remote| local)?( hex| hexadecimal| ascii-text| \d)? )(\S+)', 5)],
     [(r'(?P<prefix>(tacacs|radius)-server (\S+ )*key( \d)? )(\S+)', 5)],
-    [(r'(?P<prefix>key( \d| hexadecimal)? )(\S+)', 3)],
+    [(r'(?P<prefix>key( \d| hexadecimal)? )([\"].+[\"]|[\"].+|\S+)', 3)],
     [(r'(?P<prefix>ntp authentication-key \d+ md5 )(\S+)', 2)],
     [(r'(?P<prefix>syscon( password| address \S+) )(\S+)', 3)],
     [(r'(?P<prefix>snmp-server user( \S+)+ (auth (md5|sha)) )(\S+)', 5),
