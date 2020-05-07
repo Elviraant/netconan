@@ -4,11 +4,5 @@ python:
   - 3.5
   - 3.6
 
-branches:
-  only:
-  - master
-  - development-134
-  - development-104
-
 script: ./.travis/build.sh
 cache: pip
