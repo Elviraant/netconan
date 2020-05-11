@@ -289,7 +289,7 @@ def test_remove_line():
     result = remover.remove_line(line)
 
     assert(result == 'remove line')
-    assert(remover.remove == True)
+    assert(remover.remove is True)
 
 
 def test_remove_line_with_no_keywords():
@@ -298,9 +298,9 @@ def test_remove_line_with_no_keywords():
     keywords = ['keyword']
     remover = LineRemover(keywords)
     result = remover.remove_line(line)
-    
+
     assert(result == line)
-    assert(remover.remove == False)
+    assert(remover.remove is False)
 
 
 def test_remove_line_with_reseved_words():
@@ -312,7 +312,7 @@ def test_remove_line_with_reseved_words():
     result = remover.remove_line(line)
 
     assert(result == line)
-    assert(remover.remove == False)
+    assert(remover.remove is False)
 
 
 @pytest.mark.parametrize('val', unique_passwords)
