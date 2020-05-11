@@ -150,3 +150,5 @@ For more information about less commonly-used features, see the Netconan help (`
                             --preserve-addresses instead. To preserve just
                             prefixes and anonymize host bits, use --preserve-
                             prefixes
+	  -k KEYWORD_REMOVER, --keyword-remover KEYWORD_REMOVER
+							List of comma seperated keywords to remove
