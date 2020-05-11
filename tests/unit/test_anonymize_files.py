@@ -195,7 +195,7 @@ def test_anonymize_file_with_line_remover(tmpdir):
     """Test if the line has removed from the output file."""
     filename = "test.txt"
     input_file = tmpdir.join(filename)
-    input_file.write('keyword keyword keyword')
+    input_file.write('Sentence with a keyword')
 
     output_file = tmpdir.mkdir("out").join(filename)
 
@@ -203,7 +203,7 @@ def test_anonymize_file_with_line_remover(tmpdir):
         line_remover = mock.return_value
         line_remover.get_remove.return_value = True
 
-    anonymize_file(input_file, output_file, None,
+    anonymize_file(str(input_file), str(output_file), None,
                    None, None, None, None, None, False, line_remover)
 
     assert(os.stat(output_file).st_size == 0)
@@ -222,7 +222,7 @@ def test_anonymize_file_without_line_remover(tmpdir):
         line_remover.remove_line.return_value = 'Regular sentence'
         line_remover.get_remove.return_value = False
 
-    anonymize_file(input_file, output_file, None,
+    anonymize_file(str(input_file), str(output_file), None,
                    None, None, None, None, None, False, line_remover)
 
     assert(os.stat(output_file).st_size != 0)
