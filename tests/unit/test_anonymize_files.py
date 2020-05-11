@@ -206,7 +206,7 @@ def test_anonymize_file_with_line_remover(tmpdir):
     anonymize_file(str(input_file), str(output_file), None,
                    None, None, None, None, None, False, line_remover)
 
-    assert(os.stat(output_file).st_size == 0)
+    assert(os.stat(str(output_file)).st_size == 0)
 
 
 def test_anonymize_file_without_line_remover(tmpdir):
@@ -225,4 +225,4 @@ def test_anonymize_file_without_line_remover(tmpdir):
     anonymize_file(str(input_file), str(output_file), None,
                    None, None, None, None, None, False, line_remover)
 
-    assert(os.stat(output_file).st_size != 0)
+    assert(os.stat(str(output_file)).st_size != 0)
