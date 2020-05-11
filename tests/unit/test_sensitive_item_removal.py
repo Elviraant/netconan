@@ -273,35 +273,46 @@ def test_generate_conflicting_reserved_word_list():
 
     # Confirm the reserved word is in the set
     assert(reserved_word in result)
+
     keywords = ['keyword', 'keyword1', 'keyword2']
     result = remover._generate_conflicting_reserved_word_list(keywords)
+    # Confirm the reserved word is not in the set
     assert(reserved_word not in result)
 
 
 def test_remove_line():
-    """Test if the line removed."""
+    """Test if the line is removed."""
     line = "This is a sentence with a keyword"
     keywords = ['keyword']
     reserved_word = 'reserved'
     remover = LineRemover(keywords, [reserved_word])
-    result = remover.remove_line(line, keywords)
+    result = remover.remove_line(line)
 
-    assert(result is None)
+    assert(result == 'remove line')
+    assert(remover.remove == True)
 
+
+def test_remove_line_with_no_keywords():
+    """Test if the line is not removed."""
     line = "This is a neighbor"
-    result = remover.remove_line(line, keywords)
-    assert(result is not None)
+    keywords = ['keyword']
+    remover = LineRemover(keywords)
+    result = remover.remove_line(line)
+    
+    assert(result == line)
+    assert(remover.remove == False)
 
 
-def test_remove_line_when_there_are_reseved_words():
+def test_remove_line_with_reseved_words():
     """Test if the line removed when there are reserved words."""
-    line = "This is aaa BGP neighbor"
-    keywords = ['BGP']
-    reserved_word = 'aaa'
+    line = "This is a BGP neighbor"
+    keywords = ['neighbor']
+    reserved_word = 'BGP'
     remover = LineRemover(keywords, [reserved_word])
-    result = remover.remove_line(line, keywords)
+    result = remover.remove_line(line)
 
-    assert(result is not None)
+    assert(result == line)
+    assert(remover.remove == False)
 
 
 @pytest.mark.parametrize('val', unique_passwords)
