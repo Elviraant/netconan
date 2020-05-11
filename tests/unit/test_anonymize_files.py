@@ -178,8 +178,6 @@ def test_anonymize_files_file(tmpdir):
     anonymize_files(str(input_file), str(output_file), True, True, salt=_SALT,
                     sensitive_words=_SENSITIVE_WORDS, keywords=_KEYWORDS)
 
-    print(output_file)
-
     # Make sure output file exists and matches the ref
     assert(os.path.isfile(str(output_file)))
     assert(read_file(str(output_file)) == _REF_CONTENTS)
