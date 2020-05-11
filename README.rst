@@ -132,6 +132,8 @@ For more information about less commonly-used features, see the Netconan help (`
       -u, --undo            Undo reversible anonymization (must specify salt)
       -w SENSITIVE_WORDS, --sensitive-words SENSITIVE_WORDS
                             List of comma separated keywords to anonymize
+	  -k KEYWORD_REMOVER, --keyword-remover KEYWORD_REMOVER
+							List of comma seperated keywords to remove
       --preserve-prefixes PRESERVE_PREFIXES
                             List of comma separated IP prefixes to preserve.
                             Specified prefixes are preserved, but the host bits
@@ -150,5 +152,3 @@ For more information about less commonly-used features, see the Netconan help (`
                             --preserve-addresses instead. To preserve just
                             prefixes and anonymize host bits, use --preserve-
                             prefixes
-	  -k KEYWORD_REMOVER, --keyword-remover KEYWORD_REMOVER
-							List of comma seperated keywords to remove
