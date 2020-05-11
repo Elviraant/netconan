@@ -280,6 +280,32 @@ def test_generate_conflicting_reserved_word_list():
     assert(reserved_word not in result)
 
 
+@pytest.mark.parametrize("line, keywords, expected", [
+        ('other other keyword', ['keyword'], ('keyword',)),
+        ('other keyword other', ['keyword'], ('keyword',)),
+        ('keyword other other', ['keyword'], ('keyword',)),
+        ('other    keyword other', ['keyword'], ('keyword',)),
+])
+def test_generate_keyword_regex(line, keywords, expected):
+    """Test if the line matches with the keywords."""
+    line_remover = LineRemover(keywords)
+    result = line_remover._generate_keyword_regex(keywords)
+
+    assert(result.search(line).groups() == expected)
+
+
+@pytest.mark.parametrize("line, keywords, expected", [
+        ('other other other', ['keyword'], None),
+        ('\n\n', ['keyword'], None),
+])
+def test_generate_keyword_regex_return_None(line, keywords, expected):
+    """Test if the method returns None when the line has no keywords."""
+    line_remover = LineRemover(keywords)
+    result = line_remover._generate_keyword_regex(keywords)
+
+    assert(result.search(line) is expected)
+
+
 def test_remove_line():
     """Test if the line is removed."""
     line = "This is a sentence with a keyword"
