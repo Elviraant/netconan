@@ -70,8 +70,8 @@ def _parse_args(argv):
     parser.add_argument('--preserve-private-addresses',
                         action='store_true', default=False,
                         help='Preserve private-use IP addresses. Prefixes and host bits within the private-use IP networks are preserved. To preserve specific addresses or networks, use --preserve-addresses instead. To preserve just prefixes and anonymize host bits, use --preserve-prefixes')
-    parser.add_argument('--keyword-remover', default=None,
-                        help='List of comma seperated line beginnings to be removed.')
+    parser.add_argument('-k', '--keyword-remover', default=None,
+                        help='List of comma seperated keywords to remove.')
     return parser.parse_args(argv)
 
 
@@ -128,9 +128,9 @@ def main(argv=sys.argv[1:]):
             preserve_addresses + addrs
         )
 
-    keyword_remover = None
+    keywords = None
     if args.keyword_remover is not None:
-        keyword_remover = args.keyword_remover.split(',')
+        keywords = args.keyword_remover.split(',')
 
     if not any([
         as_numbers,
@@ -138,7 +138,7 @@ def main(argv=sys.argv[1:]):
         args.anonymize_passwords,
         args.anonymize_ips,
         args.undo,
-        keyword_remover
+        keywords
     ]):
         logging.warning('No anonymization options turned on, '
                         'no output file(s) will be generated.')
@@ -146,7 +146,7 @@ def main(argv=sys.argv[1:]):
         anonymize_files(args.input, args.output, args.anonymize_passwords,
                         args.anonymize_ips, args.salt, args.dump_ip_map,
                         sensitive_words, args.undo, as_numbers, reserved_words,
-                        preserve_prefixes, preserve_addresses)
+                        preserve_prefixes, preserve_addresses, keywords)
 
 
 if __name__ == '__main__':
