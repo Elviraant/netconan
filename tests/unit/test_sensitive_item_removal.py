@@ -127,7 +127,17 @@ juniper_password_lines = [
 
 juniper_password_with_spaces_lines = [
     ('set system license keys key "{}"', 'SOMETHING sensitive'),
-    ('secret "{}"', 'paSSword5 sensitIVE')
+    ('secret "{}"', 'paSSword5 sensitIVE'),
+    ('set system tacplus-server 1.2.3.4 secret "{}"', 'paSSword5se nsitIVE'),
+    ('set ip ospf authentication-key "{}"', 'Pass 5'),
+    ('enable password "{}"', 'paSSw ordsensItIVE'),
+    ('authentication-key "{}"', 'paSSword 5 sensitIVE'),
+    ('hello-authentication-key "{}"', 'PaSS worD'),
+    ('edit security ike policy pre-shared-key ascii-text "{}"', 'PaSS worD'),
+    ('ip ospf message-digest-key 2 md5 "{}"', 'paSSworD sensitIVE'),
+    ('set snmp trap-group "{}"', 'SeCRET TEXT'),
+    ('set snmp community "{}" authorization read-only', 'Pass WOrd'),
+    ('set interfaces irb unit 5 family inet address 1.2.3.0/24 vrrp-group 5 authentication-key "{}"', 'SentTiVe INfo2')
 ]
 
 passwords_with_spaces = [
@@ -148,7 +158,7 @@ misc_password_lines = [
 ]
 
 sensitive_lines = (cisco_password_lines +
-                   cisco_snmp_community_lines + juniper_password_lines +
+                   cisco_snmp_community_lines + juniper_password_lines + juniper_password_with_spaces_lines +
                    arista_password_lines + misc_password_lines)
 
 sensitive_items_and_formats = [
@@ -182,6 +192,7 @@ sensitive_items_and_formats = [
     ('text_here', _sensitive_item_formats.text),
     ('more-text-here0', _sensitive_item_formats.text),
     ('ABCDEFG', _sensitive_item_formats.text),
+    ('PaSS worD', _sensitive_item_formats.text),
     ('$9$HqfQ1IcrK8n/t0IcvM24aZGi6/t', _sensitive_item_formats.juniper_type9),
     ('$9$YVgoZk.5n6AHq9tORlegoJGDkPfQCtOP5Qn9pRE', _sensitive_item_formats.juniper_type9),
     ('$6$RMxgK5ALGIf.nWEC$tHuKCyfNtJMCY561P52dTzHUmYMmLxb/Mxik.j3vMUs8lMCPocM00/NAS.SN6GCWx7d/vQIgxnClyQLAb7n3x0', _sensitive_item_formats.sha512)
@@ -312,8 +323,8 @@ def test__anonymize_value_unique():
 
 
 @pytest.mark.parametrize('value, anon_value', passwords_with_spaces)
-def test_anonymize_quoted_value_with_spaces(value, anon_value):
-    """Test quoted phrases with spaces are anonymized into a single word."""
+def test_anonymize_value_quoted_with_spaces(value, anon_value):
+    """Test anonymization value of quoted phrases with is a single word."""
     lookup = {}
     anon_val = _anonymize_value(value, lookup, default_reserved_words)
 
@@ -379,7 +390,7 @@ def test__extract_enclosing_text_tail(raw_val, tail_text):
 
 @pytest.mark.parametrize('raw_config_line, sensitive_text', juniper_password_with_spaces_lines)
 def test_replace_matching_items_with_spaces(regexes, raw_config_line, sensitive_text):
-    """Test quoted phrases with spaces contained in lines are found and are anonymized as a single word."""
+    """Test anonymization value of quoted phrases with spaces is as a single word in a line."""
     config_line = raw_config_line.format(sensitive_text)
     pwd_lookup = {}
     annon_line = replace_matching_item(regexes, config_line, pwd_lookup)
