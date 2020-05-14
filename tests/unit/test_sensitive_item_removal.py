@@ -116,8 +116,6 @@ juniper_password_lines = [
     ('set system login user admin authentication encrypted-password "{}"', '$1$67Q0XA3z$YqiBW/xxKWr74oHPXEkIv1'),
     ('set system login user someone authenitcation "{}"', '$1$CNANTest$xAfu6Am1d5D/.6OVICuOu/'),
     ('set system license keys key "{}"', 'SOMETHING'),
-    # Does not pass yet, see TODO(https://github.com/intentionet/netconan/issues/107)
-    pytest.param('set system license keys key "{}"', 'SOMETHING sensitive', marks=pytest.mark.skip()),
     ('set snmp community {} authorization read-only', 'SECRETTEXT'),
     ('set snmp trap-group {} otherstuff', 'SECRETTEXT'),
     ('key hexadecimal {}', 'ABCDEF123456'),
@@ -125,6 +123,7 @@ juniper_password_lines = [
     ('hello-authentication-key {}', '$9$i.m5OBEevLz3RSevx7-VwgZj5TFCA0Tz9p'),
 ]
 
+#Config lines where passwords are quoted phrases with spaces
 juniper_password_with_spaces_lines = [
     ('set system license keys key "{}"', 'SOMETHING sensitive'),
     ('secret "{}"', 'paSSword5 sensitIVE'),
