@@ -123,7 +123,7 @@ juniper_password_lines = [
     ('hello-authentication-key {}', '$9$i.m5OBEevLz3RSevx7-VwgZj5TFCA0Tz9p'),
 ]
 
-#Config lines where passwords are quoted phrases with spaces
+# Config lines where passwords are quoted phrases with spaces
 juniper_password_with_spaces_lines = [
     ('set system license keys key "{}"', 'SOMETHING sensitive'),
     ('secret "{}"', 'paSSword5 sensitIVE'),
